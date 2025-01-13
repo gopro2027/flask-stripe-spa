@@ -1,9 +1,12 @@
 # Lightweight Databaseless Flask Single Page Stripe Storefront
 
-**main branch** = Decorated frontend ( implemented https://html5up.net/massively  )<br>
+**main branch** = Decorated frontend ( implemented https://html5up.net/massively )<br>
 **min branch** = No extra frontend added<br>
 
 This repo is a very simple lightweight databaseless storefront based on Flask and Stripe to display your stripe products on a purchasable storefront which you can host on your own server. This also includes stock quantity tracking via a tkinter widget using Stripes built in metadata.
+
+To use, simply add your products on your stripe dashboard, set up your api keys, deploy the server. Your products will automatically be read and listed.<br>
+Set your stock quantities with StockAdminGUI.py<br>
 
 ![image](https://github.com/user-attachments/assets/755f3a95-3bdf-4b4f-87ec-10fe04133647)
 
@@ -20,18 +23,6 @@ first run:
 pip install -r requirements.txt
 ```
 
-if you modify it and add new pip packages, run:
-
-```
-pip freeze > requirements.txt
-```
-
-to run the application:
-
-```
-python server.py
-```
-
 set variables/keys with (windows use set, linux use export):
 
 ```
@@ -42,7 +33,13 @@ set STRIPE_PUBLISHABLE_KEY=<Your public key from stripe>
 set STRIPE_ENDPOINT_SECRET=<Your webhook key from stripe>
 ```
 
-For generating the endpoint webhook sercret: Generate at https://dashboard.stripe.com/test/webhooks . For testing locally, please follow the "Testing the webhook" secion of this article to get your key https://testdriven.io/blog/flask-stripe-tutorial/ . Or, It also says how to do this on the stripe webhook page too. Click add endpoint then click Test in a local environment.
+For generating the endpoint webhook sercret: Generate at https://dashboard.stripe.com/test/webhooks . For testing locally, please follow the "Testing the webhook" section of this article to get your key https://testdriven.io/blog/flask-stripe-tutorial/ . Or, It also says how to do this on the stripe webhook page too. Click add endpoint then click Test in a local environment.
+
+To run the application:
+
+```
+python server.py
+```
 
 Once your secret key is set you can use the StockAdmin.py script to set the stock count of your items on stripe (default stock count is infinite)
 
