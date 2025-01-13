@@ -1,5 +1,8 @@
 # Lightweight Databaseless Flask Single Page Stripe Storefront
 
+**main branch** = Decorated frontend ( implemented https://html5up.net/massively  )<br>
+**min branch** = No extra frontend added<br>
+
 This repo is a very simple lightweight databaseless storefront based on Flask and Stripe to display your stripe products on a purchasable storefront which you can host on your own server. This also includes stock quantity tracking via a tkinter widget using Stripes built in metadata.
 
 Open the project in visual studio code by double clicking `flask-stripe-spa.code-workspace`
