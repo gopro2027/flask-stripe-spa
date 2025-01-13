@@ -14,6 +14,9 @@ window = tk.Tk()
 window.title("Stock Admin")
 window.minsize(width=300, height=200)
 
+label = tk.Label(window, text="Leave blank = not run out of stock / infinite")
+label.pack()
+
 def submitStock(product, entry):
     newStockCount = str(entry.get())
 
