@@ -1,15 +1,98 @@
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+
+  PLEASE SEE HERE FOR SOURCE https://html5up.net/massively 
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Stripe Sales Demo</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Website Name Here!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+    <noscript>
+      <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/noscript.css') }}" />
+    </noscript>
     <script src="https://js.stripe.com/v3/"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
   </head>
-  <body>
-    {% block content %}
-    {% endblock content %}
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper" class="fade-in">
+
+      {% if intro == True %}
+        <!-- Intro -->
+        <div id="intro">
+          <h1>A New Age</h1>
+          <p>The latest innovations for you</p>
+          <ul class="actions">
+            <li>
+              <a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a>
+            </li>
+          </ul>
+        </div>
+      {% endif %}
+
+      <!-- Header -->
+      <header id="header">
+        <a href="{{ url_for('index') }}" class="logo">A New Age</a>
+      </header>
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li>
+            <!--  class="active"   removed active for now-->
+            <a href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li>
+            <a href="{{ url_for('about') }}">About</a>
+          </li>
+          <li>
+            <a href="{{ url_for('contact') }}">Contact</a>
+          </li>
+        </ul>
+        <ul class="icons">
+          <li>
+            <a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a>
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a>
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a>
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a>
+          </li>
+        </ul>
+      </nav>
+      {% block content %}
+      {% endblock content %}
+
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>&copy; Untitled</li>
+          <li>
+            Design: <a href="https://html5up.net">HTML5 UP</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
   </body>
 </html>

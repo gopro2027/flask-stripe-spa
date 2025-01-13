@@ -1,35 +1,64 @@
 {% extends "base.jinja2" %}
 {% block content %}
-  <section class="section">
-    <div class="container">
-      <h1 class="title">Products</h1>
-      <p class="subtitle">These are all of our products for sale!</p>
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Featured Post -->
+    <article class="post featured">
+      <header class="major">
+        <h2>
+          <a href="#">- The Future -</a>
+        </h2>
+        <p>
+          Here we sell great products!
+          <br />
+          Check them out below!
+        </p>
+      </header>
+
+    </article>
+
+    <!-- Posts -->
+    <section class="posts">
+
       {% for product in products %}
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
+
         {% set stock = -1 %}
         {% if 'stock' in product.metadata %}
-
           {% set stock = product.metadata['stock'] | int %}
         {% endif %}
 
-        {% if stock > 0 %}
-          <p>In stock: {{ stock }}</p>
-        {% elif stock == -1 %}
-          <p>In stock</p>
-        {% else %}
-          <p style="color: red">Out of stock</p>
-        {% endif %}
-        <img class="image is-128x128" src="{{ product.images[0] }}" />
-        <form method="POST" action="{{ url_for('create_checkout_session') }}">
-          <input type="hidden" name="productIndex" value="{{ loop.index }}" />
-          <input type="submit"
-                 class="button is-primary"
-                 value="Purchase"
-                 {% if stock != -1 and stock < 1 %}disabled{% endif %} />
-        </form>
-        <hr />
+        <article>
+          <header>
+            <h2>
+              <a href="#">{{ product.name }}</a>
+            </h2>
+
+            {% if stock > 0 %}
+              <span class="date">{{ stock }} in stock</span>
+            {% elif stock == -1 %}
+              <span class="date">In stock</span>
+            {% else %}
+              <span class="date" style="color: red">Out of stock</span>
+            {% endif %}
+
+          </header>
+          <a href="/product/{{ loop.index - 1 }}" class="image fit">
+            <img src="{{ product.images[0] }}" width="15vw"  alt="" />
+          </a>
+          <p>{{ product.description }}</p>
+          <ul class="actions special">
+            <li>
+              <a href="/product/{{ loop.index - 1 }}" class="button">More Info</a>
+            </li>
+          </ul>
+        </article>
+
       {% endfor %}
-    </div>
-  </section>
-{% endblock %}
+
+
+    </section>
+
+  </div>
+{% endblock content %}

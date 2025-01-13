@@ -1,0 +1,59 @@
+{% extends "base.jinja2" %}
+{% block content %}
+
+  {% set stock = -1 %}
+  {% if 'stock' in product.metadata %}
+    {% set stock = product.metadata['stock'] | int %}
+  {% endif %}
+
+  <!-- Please put the long form product descriptions for your products in here. -->
+  <script>
+      function getProductDescription(productName) {
+          if (productName.toLowerCase() === "C5 Taillight".toLowerCase()) {
+              return "The product is super great and fantastic and here is a bunch of information about it that wasn't saved on the stripe server";
+          }
+          return "Did not find the exact product you were looking for so here is a generic string to return for the description or you could code it to return nothing";
+      }
+  </script>
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Post -->
+    <section class="post">
+      <header class="major">
+        <h1>{{ product.name }}</h1>
+        <p>{{ product.description }}</p>
+
+        {% for image in product.images %}
+          <img src="{{ image }}" width="50%" alt="" />
+        {% endfor %}
+
+        <p>
+          <br />
+          <script type="text/javascript">
+              document.write(getProductDescription('{{ product.name }}'));
+          </script>
+        </p>
+
+        {% if stock > 0 %}
+          <span class="date">{{ stock }} in stock - ${{ (price.unit_amount/100) | int }}</span>
+        {% elif stock == -1 %}
+          <span class="date">In stock - ${{ (price.unit_amount/100) | int }}</span>
+        {% else %}
+          <span class="date" style="color: red">Out of stock</span>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('create_checkout_session') }}">
+          <input type="hidden" name="productid" value="{{ product.id }}" />
+          <input type="submit"
+                 class="button is-primary"
+                 value="Purchase"
+                 {% if stock != -1 and stock < 1 %}disabled{% endif %} />
+        </header>
+
+      </section>
+
+    </div>
+
+  {% endblock content %}
