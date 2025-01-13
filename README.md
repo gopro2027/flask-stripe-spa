@@ -12,7 +12,6 @@ Set your stock quantities with StockAdminGUI.py<br>
 
 ![image](https://github.com/user-attachments/assets/684d72e8-a303-4937-ae00-3cacb3cff0be)
 
-
 Open the project in visual studio code by double clicking `flask-stripe-spa.code-workspace`
 
 Please follow this tutorial to set up a venv if you wish: https://code.visualstudio.com/docs/python/environments
@@ -66,3 +65,7 @@ djLint
 ```
 
 Then remember to change the file type in the bottom right corner on html/jinja files from html to Jinja HTML
+
+How to publish on a linux server:
+
+Follow this tutorial https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-20-04
