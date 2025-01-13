@@ -28,7 +28,7 @@
         {% if 'stock' in product.metadata %}
           {% set stock = product.metadata['stock'] | int %}
         {% endif %}
-
+        
         <article>
           <header>
             <h2>
@@ -54,7 +54,6 @@
             </li>
           </ul>
         </article>
-
       {% endfor %}
 
 

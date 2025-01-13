@@ -57,6 +57,13 @@ def get_user(id):
     price = stripe.Price.retrieve(product.default_price)
     return render_template("product.jinja2", product=product, price=price)
 
+@app.route('/product/<id>')
+def get_user(id):
+    id = int(id)
+    product = getProducts()[id]
+    price = stripe.Price.retrieve(product.default_price)
+    return render_template("product.jinja2", product=product, price=price)
+
 @app.route("/config")
 def get_publishable_key():
     stripe_config = {"publicKey": stripe_keys["publishable_key"]}
