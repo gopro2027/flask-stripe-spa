@@ -26,7 +26,6 @@ def getStockCountFromProduct(product):
 
 hasProducts = False
 for product in getProducts():
-    print(product)
     hasProducts = True
 if hasProducts == False:
     print("No stripe products available to load! Please add a product via your stripe panel")
@@ -49,13 +48,6 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template("contact.jinja2")
-
-@app.route('/product/<id>')
-def get_user(id):
-    id = int(id)
-    product = getProducts()[id]
-    price = stripe.Price.retrieve(product.default_price)
-    return render_template("product.jinja2", product=product, price=price)
 
 @app.route('/product/<id>')
 def get_user(id):
@@ -141,7 +133,6 @@ def stripe_webhook():
         print("[WEBHOOK] Payment was successful.")
         # decrement stock by 1
         productId = event.data.object['metadata']['product_id']
-        print("found product id: "+str(productId))
         product = stripe.Product.retrieve(productId)
         stock = getStockCountFromProduct(product)
         if (stock != -1):
