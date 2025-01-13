@@ -40,7 +40,22 @@ app.secret_key = os.environ["FLASK_SECRET"]
 
 @app.route("/")
 def index():
-    return render_template("index.jinja2", products=getProducts())
+    return render_template("index.jinja2", intro=True, products=getProducts())
+
+@app.route("/about")
+def about():
+    return render_template("about.jinja2")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.jinja2")
+
+@app.route('/product/<id>')
+def get_user(id):
+    id = int(id)
+    product = getProducts()[id]
+    price = stripe.Price.retrieve(product.default_price)
+    return render_template("product.jinja2", product=product, price=price)
 
 @app.route('/product/<id>')
 def get_user(id):
