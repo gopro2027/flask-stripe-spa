@@ -21,13 +21,7 @@
           <p style="color: red">Out of stock</p>
         {% endif %}
         <img class="image is-128x128" src="{{ product.images[0] }}" />
-        <form method="POST" action="{{ url_for('create_checkout_session') }}">
-          <input type="hidden" name="productIndex" value="{{ loop.index }}" />
-          <input type="submit"
-                 class="button is-primary"
-                 value="Purchase"
-                 {% if stock != -1 and stock < 1 %}disabled{% endif %} />
-        </form>
+        <a href="/product/{{ loop.index - 1 }}" class="button">More Info</a>
         <hr />
       {% endfor %}
     </div>

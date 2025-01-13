@@ -26,12 +26,11 @@ def getStockCountFromProduct(product):
 
 hasProducts = False
 for product in getProducts():
-    print(product.default_price)
+    print(product)
     hasProducts = True
 if hasProducts == False:
     print("No stripe products available to load! Please add a product via your stripe panel")
     exit(0)
-
 
 app = Flask(__name__,
             static_url_path='',
@@ -42,6 +41,13 @@ app.secret_key = os.environ["FLASK_SECRET"]
 @app.route("/")
 def index():
     return render_template("index.jinja2", products=getProducts())
+
+@app.route('/product/<id>')
+def get_user(id):
+    id = int(id)
+    product = getProducts()[id]
+    price = stripe.Price.retrieve(product.default_price)
+    return render_template("product.jinja2", product=product, price=price)
 
 @app.route("/config")
 def get_publishable_key():
@@ -62,8 +68,15 @@ def purchaseerror():
 
 @app.route("/create-checkout-session", methods=['POST'])
 def create_checkout_session():
-    productIndex = request.form.get('productIndex')
-    product = getProducts()[int(productIndex) - 1]
+    productid = request.form.get('productid')
+    products = getProducts()
+    product = None
+    for p in products:
+        if p.id == productid:
+            product = p
+    if product == None:
+        return redirect('/purchaseerror', code=303)
+    
     stock = getStockCountFromProduct(product)
 
     if (stock != -1 and stock < 1):
