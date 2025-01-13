@@ -1,4 +1,6 @@
-# Single page app stripe products
+# Lightweight Single Page Stripe Storefront
+
+This repo is a very simple lightweight databaseless storefront based on Flask and Stripe to display your stripe products on a purchasable storefront which you can host on your own server. This also includes stock quantity tracking via a tkinter widget using Stripes built in metadata.
 
 Please follow this tutorial to set up a venv if you wish: https://code.visualstudio.com/docs/python/environments
 
