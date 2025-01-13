@@ -1,0 +1,35 @@
+{% extends "base.jinja2" %}
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Products</h1>
+      <p class="subtitle">These are all of our products for sale!</p>
+      {% for product in products %}
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        {% set stock = -1 %}
+        {% if 'stock' in product.metadata %}
+
+          {% set stock = product.metadata['stock'] | int %}
+        {% endif %}
+
+        {% if stock > 0 %}
+          <p>In stock: {{ stock }}</p>
+        {% elif stock == -1 %}
+          <p>In stock</p>
+        {% else %}
+          <p style="color: red">Out of stock</p>
+        {% endif %}
+        <img class="image is-128x128" src="{{ product.images[0] }}" />
+        <form method="POST" action="{{ url_for('create_checkout_session') }}">
+          <input type="hidden" name="productIndex" value="{{ loop.index }}" />
+          <input type="submit"
+                 class="button is-primary"
+                 value="Purchase"
+                 {% if stock != -1 and stock < 1 %}disabled{% endif %} />
+        </form>
+        <hr />
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
