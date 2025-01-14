@@ -23,6 +23,11 @@ def getStockCountFromProduct(product):
         return -1
     else:
         return int(product.metadata["stock"])
+    
+def isProductDisabled(product):
+    if "disabled" in product.metadata:
+        return True
+    return False
 
 hasProducts = False
 for product in getProducts():
@@ -46,6 +51,8 @@ def index():
 def get_user(id):
     id = int(id)
     product = getProducts()[id]
+    if isProductDisabled(product):
+        return redirect('/purchaseerror', code=303)
     price = stripe.Price.retrieve(product.default_price)
     return render_template("product.jinja2", product=product, price=price)
 
@@ -64,7 +71,7 @@ def cancelled():
 
 @app.route("/purchaseerror")
 def purchaseerror():
-    return render_template("index.jinja2")
+    return redirect("/")
 
 @app.route("/create-checkout-session", methods=['POST'])
 def create_checkout_session():
@@ -81,6 +88,10 @@ def create_checkout_session():
 
     if (stock != -1 and stock < 1):
         return redirect('/purchaseerror', code=303)
+    
+    if isProductDisabled(product):
+        return redirect('/purchaseerror', code=303)
+    
     try:
         checkout_session = stripe.checkout.Session.create(
             #client_reference_id=current_user.id if current_user.is_authenticated else None,

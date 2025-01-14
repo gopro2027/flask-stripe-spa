@@ -5,24 +5,26 @@
       <h1 class="title">Products</h1>
       <p class="subtitle">These are all of our products for sale!</p>
       {% for product in products %}
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        {% set stock = -1 %}
-        {% if 'stock' in product.metadata %}
+        {% if 'disabled' not in product.metadata %}
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          {% set stock = -1 %}
+          {% if 'stock' in product.metadata %}
 
-          {% set stock = product.metadata['stock'] | int %}
-        {% endif %}
+            {% set stock = product.metadata['stock'] | int %}
+          {% endif %}
 
-        {% if stock > 0 %}
-          <p>In stock: {{ stock }}</p>
-        {% elif stock == -1 %}
-          <p>In stock</p>
-        {% else %}
-          <p style="color: red">Out of stock</p>
+          {% if stock > 0 %}
+            <p>In stock: {{ stock }}</p>
+          {% elif stock == -1 %}
+            <p>In stock</p>
+          {% else %}
+            <p style="color: red">Out of stock</p>
+          {% endif %}
+          <img class="image is-128x128" src="{{ product.images[0] }}" />
+          <a href="/product/{{ loop.index - 1 }}" class="button">More Info</a>
+          <hr />
         {% endif %}
-        <img class="image is-128x128" src="{{ product.images[0] }}" />
-        <a href="/product/{{ loop.index - 1 }}" class="button">More Info</a>
-        <hr />
       {% endfor %}
     </div>
   </section>
