@@ -24,36 +24,39 @@
 
       {% for product in products %}
 
-        {% set stock = -1 %}
-        {% if 'stock' in product.metadata %}
-          {% set stock = product.metadata['stock'] | int %}
+        {% if 'disabled' not in product.metadata %}
+
+          {% set stock = -1 %}
+          {% if 'stock' in product.metadata %}
+            {% set stock = product.metadata['stock'] | int %}
+          {% endif %}
+
+          <article>
+            <header>
+              <h2>
+                <a href="#">{{ product.name }}</a>
+              </h2>
+
+              {% if stock > 0 %}
+                <span class="date">{{ stock }} in stock</span>
+              {% elif stock == -1 %}
+                <span class="date">In stock</span>
+              {% else %}
+                <span class="date" style="color: red">Out of stock</span>
+              {% endif %}
+
+            </header>
+            <a href="/product/{{ loop.index - 1 }}" class="image fit">
+              <img src="{{ product.images[0] }}" width="15vw"  alt="" />
+            </a>
+            <p>{{ product.description }}</p>
+            <ul class="actions special">
+              <li>
+                <a href="/product/{{ loop.index - 1 }}" class="button">More Info</a>
+              </li>
+            </ul>
+          </article>
         {% endif %}
-        
-        <article>
-          <header>
-            <h2>
-              <a href="#">{{ product.name }}</a>
-            </h2>
-
-            {% if stock > 0 %}
-              <span class="date">{{ stock }} in stock</span>
-            {% elif stock == -1 %}
-              <span class="date">In stock</span>
-            {% else %}
-              <span class="date" style="color: red">Out of stock</span>
-            {% endif %}
-
-          </header>
-          <a href="/product/{{ loop.index - 1 }}" class="image fit">
-            <img src="{{ product.images[0] }}" width="15vw"  alt="" />
-          </a>
-          <p>{{ product.description }}</p>
-          <ul class="actions special">
-            <li>
-              <a href="/product/{{ loop.index - 1 }}" class="button">More Info</a>
-            </li>
-          </ul>
-        </article>
       {% endfor %}
 
 
