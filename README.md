@@ -49,6 +49,10 @@ python StockAdmin.py
 python StockAdminGUI.py
 ```
 
+Alternatively, you can set the stock and disabled values here in stripe by editing the metadata values manually:
+![image](https://github.com/user-attachments/assets/8cf7a94a-751a-42c8-829e-06838bb8e9fb)
+
+
 Python 3.6 or newer required.
 
 Test credit card number for test mode:
