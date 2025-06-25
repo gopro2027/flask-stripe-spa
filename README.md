@@ -87,6 +87,11 @@ sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev p
 
 Then set up this project with a .venv in your home directory like ~/flask-stripe-spa/ (and also then `pip install wheel gunicorn flask`) then create this file `sudo nano /etc/systemd/system/flask-stripe-spa.service`
 
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
 in that file put something like:
 
 ```
